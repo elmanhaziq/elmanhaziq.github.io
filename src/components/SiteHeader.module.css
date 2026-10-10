@@ -1,0 +1,153 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--header-h);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+.header[data-scrolled="true"] {
+  background: rgba(23, 25, 31, 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: var(--line);
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.mark {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-height: 44px;
+  align-items: center;
+}
+.name {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.role {
+  font-size: 0.6875rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  gap: clamp(16px, 2.6vw, 36px);
+}
+
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-height: 44px;
+  align-items: center;
+  font-size: 0.9375rem;
+  color: var(--steel);
+  transition: color 0.2s var(--ease-out);
+}
+.link:hover {
+  color: var(--warm-white);
+}
+.num {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--steel-dim);
+}
+
+.toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  position: relative;
+}
+.bars,
+.bars::before,
+.bars::after {
+  position: absolute;
+  left: 12px;
+  width: 20px;
+  height: 1.5px;
+  background: var(--warm-white);
+  transition:
+    transform 0.25s var(--ease-out),
+    opacity 0.2s;
+}
+.bars {
+  top: 50%;
+}
+.bars::before,
+.bars::after {
+  content: "";
+  left: 0;
+}
+.bars::before {
+  transform: translateY(-6px);
+}
+.bars::after {
+  transform: translateY(6px);
+}
+.bars[data-open="true"] {
+  background: transparent;
+}
+.bars[data-open="true"]::before {
+  transform: rotate(45deg);
+}
+.bars[data-open="true"]::after {
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 720px) {
+  .role {
+    display: none;
+  }
+  .toggle {
+    display: block;
+  }
+  .list {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px var(--gutter) 24px;
+    background: var(--graphite);
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.2s var(--ease-out),
+      transform 0.25s var(--ease-out),
+      visibility 0.2s;
+  }
+  .list[data-open="true"] {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+  .list li + li {
+    border-top: 1px solid var(--line);
+  }
+  .link {
+    width: 100%;
+    min-height: 56px;
+    font-size: 1.25rem;
+    color: var(--warm-white);
+    gap: 14px;
+  }
+}

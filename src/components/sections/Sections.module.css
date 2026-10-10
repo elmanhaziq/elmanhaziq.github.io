@@ -1,0 +1,262 @@
+/* ─── Lifecycle ──────────────────────────────────────────────────────── */
+.lifecycle {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px 28px 8px 0;
+}
+.stage + .stage {
+  padding-left: 28px;
+  border-left: 1px solid var(--line);
+}
+.stageText {
+  color: var(--steel);
+  text-wrap: pretty;
+}
+.evidence {
+  margin-top: auto;
+  padding-top: 16px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--steel-dim);
+  text-wrap: pretty;
+}
+
+@media (max-width: 1080px) {
+  .lifecycle {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stage:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .stage:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+  .stage {
+    padding-bottom: 28px;
+  }
+}
+@media (max-width: 640px) {
+  .lifecycle {
+    grid-template-columns: 1fr;
+  }
+  .stage,
+  .stage + .stage {
+    padding: 24px 0;
+    border-left: 0;
+  }
+  .stage + .stage {
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* ─── Work index ─────────────────────────────────────────────────────── */
+.workList {
+  border-top: 1px solid var(--line);
+}
+.workRow {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr) 2rem;
+  gap: 24px;
+  align-items: baseline;
+  padding: clamp(24px, 3vw, 40px) 0;
+  border-bottom: 1px solid var(--line);
+  transition: background-color 0.3s var(--ease-out);
+}
+.workIndex {
+  transition: color 0.2s var(--ease-out);
+}
+.workMain {
+  display: grid;
+  gap: 4px;
+}
+.workTitle {
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  transition: color 0.2s var(--ease-out);
+}
+.workKind {
+  font-size: 0.875rem;
+  color: var(--steel-dim);
+}
+.workLine {
+  color: var(--steel);
+  text-wrap: pretty;
+}
+.workStack {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--steel-dim);
+}
+.workArrow {
+  justify-self: end;
+  transition: transform 0.25s var(--ease-out), color 0.2s;
+}
+.workRow:hover .workTitle,
+.workRow:hover .workIndex,
+.workRow:hover .workArrow {
+  color: var(--accent);
+}
+.workRow:hover .workArrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 980px) {
+  .workRow {
+    grid-template-columns: 2.5rem minmax(0, 1fr) 1.5rem;
+    row-gap: 12px;
+  }
+  .workLine,
+  .workStack {
+    grid-column: 2 / 3;
+  }
+  .workArrow {
+    grid-row: 1;
+    grid-column: 3;
+  }
+}
+
+/* ─── Systems ────────────────────────────────────────────────────────── */
+.systems {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.system {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px 28px 0 0;
+}
+.system + .system {
+  padding-left: 28px;
+  border-left: 1px solid var(--line);
+}
+.flow {
+  counter-reset: step;
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--steel);
+}
+.flow li {
+  counter-increment: step;
+  position: relative;
+  padding: 10px 0 10px 28px;
+}
+.flow li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  color: var(--steel-dim);
+}
+/* Connector between steps: the flow reads as a pipeline, not a list. */
+.flow li + li::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: -6px;
+  height: 12px;
+  border-left: 1px solid var(--accent);
+  opacity: 0.6;
+}
+.systemNote {
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 0.875rem;
+  color: var(--steel-dim);
+}
+
+@media (max-width: 980px) {
+  .systems {
+    grid-template-columns: 1fr;
+  }
+  .system,
+  .system + .system {
+    padding: 28px 0;
+    border-left: 0;
+  }
+  .system + .system {
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* ─── About ──────────────────────────────────────────────────────────── */
+.about {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+.aboutText {
+  grid-column: 4 / span 5;
+  display: grid;
+  gap: 24px;
+  align-content: start;
+}
+.facts {
+  grid-column: 10 / span 3;
+  margin: 0;
+  display: grid;
+  gap: 24px;
+  align-content: start;
+}
+.facts > div {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.facts dd {
+  margin: 8px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.facts dd span {
+  color: var(--steel-dim);
+}
+@media (max-width: 980px) {
+  .aboutText,
+  .facts {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ─── Contact ────────────────────────────────────────────────────────── */
+.contact {
+  border-top: 1px solid var(--line);
+}
+.contactRow {
+  display: grid;
+  grid-template-columns: 8rem 1fr auto;
+  align-items: baseline;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+  transition: color 0.2s var(--ease-out);
+}
+.contactValue {
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+.contactRow:hover {
+  color: var(--accent);
+}
+@media (max-width: 560px) {
+  .contactRow {
+    grid-template-columns: 1fr auto;
+  }
+  .contactRow > .label {
+    grid-column: 1 / -1;
+  }
+}
